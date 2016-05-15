@@ -1,7 +1,10 @@
 package domain
 
 import datalayer.net.VkRest
+import datalayer.providers.DictionariesDPImpl
+import datalayer.providers.TextDPImpl
 import domain.providers.SchedulersDP
+import domain.providers.TextDP
 import presentationlayer.MainSchedulers
 
 /**
@@ -15,6 +18,15 @@ class DIManager {
 
 		private val vkRest: Lazy<VkRest> = lazy { VkRest() }
 		private val vkRestApi = lazy { vkRest.value.getRest() }
+		private val textDP = lazy { TextDPImpl() }
+		private val dictionariesDP = lazy { DictionariesDPImpl() }
 
+
+		fun getTextDP(): TextDP {
+			return textDP.value
+		}
+		fun getDictionariesDP(): DictionariesDPImpl {
+			return dictionariesDP.value
+		}
 	}
 }

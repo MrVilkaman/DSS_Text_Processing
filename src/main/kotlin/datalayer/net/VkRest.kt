@@ -1,8 +1,6 @@
 package datalayer.net
 
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import presentationlayer.Settings
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,11 +15,11 @@ class VkRest {
     init {
         val builder = OkHttpClient.Builder()
 
-        if(Settings.RETROFIT_LOGS) {
-            val logging = HttpLoggingInterceptor();
-            logging.level = HttpLoggingInterceptor.Level.BODY;
-            builder.addInterceptor(logging)
-        }
+//        if(Settings.RETROFIT_LOGS) {
+//            val logging = HttpLoggingInterceptor();
+//            logging.level = HttpLoggingInterceptor.Level.BODY;
+//            builder.addInterceptor(logging)
+//        }
 
         client = builder.build();
     }

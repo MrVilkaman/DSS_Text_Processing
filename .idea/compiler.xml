@@ -21,6 +21,8 @@
     <bytecodeTargetLevel>
       <module name="steamkey_miner_main" target="1.8" />
       <module name="steamkey_miner_test" target="1.8" />
+      <module name="text_analyzer_main" target="1.8" />
+      <module name="text_analyzer_test" target="1.8" />
       <module name="vkbot_main" target="1.8" />
       <module name="vkbot_test" target="1.8" />
     </bytecodeTargetLevel>
