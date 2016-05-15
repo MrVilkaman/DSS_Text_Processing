@@ -16,6 +16,7 @@ class DictionariesDPImpl : DictionariesDP {
 		return Arrays.asList(
 			"и",
 			"-",
+			"—",
 			"еще",
 			"него",
 			"сказать",
@@ -154,6 +155,7 @@ class DictionariesDPImpl : DictionariesDP {
 			"моя",
 			"свое",
 			"этой",
+			"это",
 			"другой",
 			"мы",
 			"свою",
