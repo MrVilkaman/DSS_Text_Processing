@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/steamkey miner.iml" filepath="$PROJECT_DIR$/.idea/modules/steamkey miner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/steamkey_miner_main.iml" filepath="$PROJECT_DIR$/.idea/modules/steamkey_miner_main.iml" group="steamkey miner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/steamkey_miner_test.iml" filepath="$PROJECT_DIR$/.idea/modules/steamkey_miner_test.iml" group="steamkey miner" />
+    </modules>
+  </component>
+</project>
