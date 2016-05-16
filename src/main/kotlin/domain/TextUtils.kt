@@ -109,6 +109,24 @@ class TextUtils {
 		fun split(rawText: String): ArrayList<String> {
 			return rawText.split(' ') as ArrayList<String>;
 		}
+
+		fun preProcessText(dictionaryName: List<String>, rawText: String): String {
+			val sb = StringBuilder(rawText)
+			for (word in dictionaryName) {
+				var lastIndex = -1;
+				do {
+					lastIndex = sb.indexOf(word, lastIndex + 1)
+					val flag = lastIndex != -1;
+					if (flag) {
+						sb.insert(lastIndex, "|")
+						sb.insert(lastIndex + word.length + 1, "|")
+						lastIndex += word.length + 1
+					}
+				} while (flag)
+			}
+			return sb.toString()
+
+		}
 	}
 
 }

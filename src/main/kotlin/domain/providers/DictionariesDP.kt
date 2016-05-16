@@ -7,4 +7,5 @@ interface DictionariesDP {
 
 	open fun getDictionaryAbbreviations():List<String>;
 	open fun getDictionaryStopWords(): List<String>
+	open fun getDictionaryName(): List<String>
 }

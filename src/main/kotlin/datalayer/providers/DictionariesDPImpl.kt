@@ -14,7 +14,25 @@ class DictionariesDPImpl : DictionariesDP {
 			"A.",
 			"T."
 		)
+	}
 
+	override fun getDictionaryName(): List<String> {
+		return Arrays.asList(
+			"R.A.T.",
+			"DOOM II",
+			"League Of Legends Dota 2",
+			"Quake III Arena",
+			"Counter-Strike",
+			"Quake Live",
+			"Battlefield 2",
+			"BF Hardline",
+			"Call Of Duty",
+			"Дом Павлова",
+			"CS:GO",
+			"Team Fortress",
+			"Hearthstone: Heroes of Warcraft",
+			"Magic: The Gathering"
+		)
 	}
 
 	override fun getDictionaryStopWords(): List<String> {
@@ -185,7 +203,9 @@ class DictionariesDPImpl : DictionariesDP {
 			"сказал",
 			"есть",
 			"не",
-			"сказала"
+			"сказала",
+			"либо",
+			"кто-то"
 			)
 	}
 }
