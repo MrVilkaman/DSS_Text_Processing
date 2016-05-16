@@ -10,7 +10,7 @@ import java.util.*
 class TextUtils {
 	companion object {
 
-		fun groupe(words: ArrayList<String>): ArrayList<WordsFrequency> {
+		fun groupe(words: List<String>): List<WordsFrequency> {
 			val list = ArrayList(words)
 
 			val groupBy = list.groupBy { it }
@@ -22,12 +22,16 @@ class TextUtils {
 			return mapp
 		}
 
-		fun splitByWords(dictionaryStopWords: List<String>, rawText: String): ArrayList<String> {
+		fun splitByWords(dictionaryStopWords: List<String>, rawText: String): List<String> {
 			val words = TextUtils.split(rawText)
 			val wordsNew = ArrayList<String>()
 			for (index in words.size - 1 downTo 0) {
 				val w = words.get(index)
-					.trim({ it.isWhitespace() || it.equals(':') || it.equals(',') || it.equals('.') || it.equals(')') || it.equals('(') || it.equals('»') || it.equals('«') })
+					.trim({
+						it.isWhitespace() || it.equals(':')
+							|| it.equals('?') || it.equals('!')
+							|| it.equals(',') || it.equals('.') || it.equals(')') || it.equals('(') || it.equals('»') || it.equals('«')
+					})
 				var flag = w.isNotEmpty()
 
 				for (dikWord in dictionaryStopWords) {
@@ -100,14 +104,14 @@ class TextUtils {
 			return false
 		}
 
-		fun stemming(words: ArrayList<String>): ArrayList<String> {
+		fun stemming(words: List<String>): List<String> {
 			val list = ArrayList<String>()
 			words.forEach { list.add(Porter.stem(it)) }
 			return list;
 		}
 
-		fun split(rawText: String): ArrayList<String> {
-			return rawText.split(' ') as ArrayList<String>;
+		fun split(rawText: String): List<String> {
+			return rawText.split(' ');
 		}
 
 		fun preProcessText(dictionaryName: List<String>, rawText: String): String {
@@ -125,6 +129,36 @@ class TextUtils {
 				} while (flag)
 			}
 			return sb.toString()
+
+		}
+
+		fun postProcessText(words: List<String>): List<String> {
+			val newWords = ArrayList<String>()
+			var inProgres: Boolean = false
+			var sb: StringBuilder? = null;
+			for (word in words) {
+				if (inProgres) {
+					if (word.endsWith('|')) {
+						if (sb != null) {
+							sb.append(word.substring(0..word.length - 2))
+							newWords.add(sb.toString())
+							sb = null
+							inProgres = false
+						}
+					} else {
+						sb?.append(word)?.append(' ')
+					}
+				} else {
+					if (!word.startsWith('|')) {
+						newWords.add(word)
+					} else {
+						sb = StringBuilder()
+						sb.append(word.substring(1..word.length - 1)).append(' ')
+						inProgres = true
+					}
+				}
+			}
+			return newWords
 
 		}
 	}

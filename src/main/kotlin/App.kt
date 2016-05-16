@@ -28,10 +28,11 @@ private fun showWordsHandle(dictionariesDP: DictionariesDPImpl, rawText: String)
 	val text = TextUtils.preProcessText(dictionariesDP.getDictionaryName(),rawText)
 	var words = TextUtils.splitByWords(dictionariesDP.getDictionaryStopWords(), text)
 	println("Текст без \"мусора\":")
-	println()
 	println(buildText(words, " "))
-//	words = TextUtils.stemming(words)
-//	useGroupe(words)
+	words = TextUtils.postProcessText(words)
+	println()
+	words = TextUtils.stemming(words)
+	useGroupe(words)
 }
 
 private fun showSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) {
@@ -44,7 +45,7 @@ private fun showSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) 
 }
 
 
-fun useGroupe(words: ArrayList<String>) {
+fun useGroupe(words: List<String>) {
 	val mapp = TextUtils.groupe(words)
 	val sb = StringBuilder()
 	sb.append('\n').append("*****").append('\n')
