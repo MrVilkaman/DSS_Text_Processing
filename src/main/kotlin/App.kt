@@ -3,7 +3,6 @@ import domain.Porter
 import domain.entity.WordsFrequency
 import domain.entity.revSort
 import java.util.*
-import kotlin.comparisons.compareBy
 
 /**
  * Created by Zahar on 17.04.16.
@@ -19,16 +18,69 @@ fun main(args: Array<String>) {
 
 
 	var rawText = textDP.getRawText()
-	var words = split(rawText)
-	words = split(dictionariesDP.getDictionaryStopWords(), words)
-	rawText = buildText(words)
-	println("$rawText")
-
-	println("****")
-	words = stemming(words)
-	groupe(words)
+	splitBySentensies(rawText, dictionariesDP.getDictionaryAbbreviations())
+//	words = split(dictionariesDP.getDictionaryStopWords(), words)
+//	rawText = buildText(words)
+//	println("$rawText")
+//
+//	println("****")
+//	words = stemming(words)
+//	groupe(words)
 
 	println("exit")
+}
+
+fun splitBySentensies(rawText: String, dictAbb: List<String>) {
+	val carretWord = "\n*"
+
+	val sb = StringBuilder(rawText)
+	var lastIndex = -1;
+	val listChars = Arrays.asList('.', '!', '?')
+	for (ch in listChars)
+		do {
+			lastIndex = sb.indexOf(ch, lastIndex + 1)
+			val flag = lastIndex != -1;
+			if (flag) {
+				sb.insert(lastIndex + 1, carretWord)
+			}
+		} while (flag)
+
+	lastIndex = -1
+	do {
+		lastIndex = sb.indexOf(carretWord, lastIndex + 1)
+		for (word in dictAbb) {
+
+			val flag = matchStr(sb, lastIndex, word);
+			if (flag) {
+				sb.replace(lastIndex, lastIndex + carretWord.length, "")
+				break
+			}
+		}
+	} while (lastIndex != -1)
+
+
+	println(sb.toString())
+}
+
+fun matchStr(sb: StringBuilder, lastIndex: Int, word: String): Boolean {
+	val length = word.length
+	var startIndex = lastIndex - length * 2
+	startIndex = if (startIndex < 0) 0 else startIndex
+	for (strIndex in startIndex..lastIndex) {
+		var flag = false
+		for (wordIndex in 0..length - 1) {
+			val c = sb[strIndex + wordIndex]
+			val c1 = word[wordIndex]
+			if (c == c1) {
+				flag = true
+			} else {
+				flag = false
+				break
+			}
+		}
+		if (flag) return true
+	}
+	return false
 }
 
 fun stemming(words: ArrayList<String>): ArrayList<String> {

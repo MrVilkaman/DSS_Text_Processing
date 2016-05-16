@@ -9,7 +9,12 @@ import java.util.*
 class DictionariesDPImpl : DictionariesDP {
 
 	override fun getDictionaryAbbreviations(): List<String> {
-		return ArrayList()
+		return Arrays.asList(
+			"R.",
+			"A.",
+			"T."
+		)
+
 	}
 
 	override fun getDictionaryStopWords(): List<String> {
