@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
 	var rawText = textDP.getRawText()
 	showSentensies(dictionariesDP, rawText)
 
-	showWordsHandle(dictionariesDP, rawText)
+//	showWordsHandle(dictionariesDP, rawText)
 
 	println("exit")
 }
@@ -28,15 +28,16 @@ private fun showWordsHandle(dictionariesDP: DictionariesDPImpl, rawText: String)
 	var words = TextUtils.splitByWords(dictionariesDP.getDictionaryStopWords(), rawText)
 	println("Текст без \"мусора\":")
 	println()
-	println(buildText(words))
+	println(buildText(words, " "))
 	words = TextUtils.stemming(words)
 	useGroupe(words)
 }
 
 private fun showSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) {
 	val sentensies = TextUtils.splitBySentensies(rawText, dictionariesDP.getDictionaryAbbreviations())
-	println("Выделенеи предложений: ")
-	println(sentensies)
+	println("Выделениe предложений: ")
+	println(buildText(sentensies, "\n*"))
+	println("Всего предложений: ${sentensies.size}")
 	println("****")
 	println()
 }
@@ -54,10 +55,10 @@ fun useGroupe(words: ArrayList<String>) {
 }
 
 
-private fun buildText(words: ArrayList<String>): String {
+private fun buildText(words: List<String>, sepor: String): String {
 	val sb = StringBuilder()
 	for (w in words) {
-		sb.append(w).append(' ')
+		sb.append(w).append(sepor)
 	}
 	return sb.toString()
 }

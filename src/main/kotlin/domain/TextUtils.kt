@@ -44,7 +44,7 @@ class TextUtils {
 			return wordsNew
 		}
 
-		fun splitBySentensies(rawText: String, dictAbb: List<String>): String {
+		fun splitBySentensies(rawText: String, dictAbb: List<String>): List<String> {
 			val carretWord = "\n*"
 
 			val sb = StringBuilder(rawText)
@@ -71,7 +71,11 @@ class TextUtils {
 					}
 				}
 			} while (lastIndex != -1)
-			return sb.toString()
+
+
+			val split: ArrayList<String> = sb.toString().split(carretWord) as ArrayList<String>
+			split.removeIf { it.isEmpty() }
+			return split
 		}
 
 
