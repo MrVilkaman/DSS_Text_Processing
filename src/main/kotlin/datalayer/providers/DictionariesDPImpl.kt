@@ -18,17 +18,18 @@ class DictionariesDPImpl : DictionariesDP {
 
 	override fun getDictionaryName(): List<String> {
 		return Arrays.asList(
-			"R.A.T.",
+//			"R.A.T.",
 			"DOOM II",
-			"League Of Legends Dota 2",
+			"League Of Legends",
+			"Dota 2",
 			"Quake III Arena",
-			"Counter-Strike",
+			"Global Offensive",
 			"Quake Live",
 			"Battlefield 2",
 			"BF Hardline",
 			"Call Of Duty",
 			"Дом Павлова",
-			"CS:GO",
+//			"CS:GO",
 			"Team Fortress",
 			"Hearthstone: Heroes of Warcraft",
 			"Magic: The Gathering"

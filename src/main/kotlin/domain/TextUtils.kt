@@ -17,7 +17,7 @@ class TextUtils {
 			val mapp: ArrayList<WordsFrequency> = ArrayList<WordsFrequency>()
 			groupBy.forEach { mapp.add(WordsFrequency(it.key, it.value.size)) }
 			mapp.revSort()
-			mapp.removeIf { it.count == 1 }
+//			mapp.removeIf { it.count == 1 }
 
 			return mapp
 		}
@@ -119,7 +119,7 @@ class TextUtils {
 			for (word in dictionaryName) {
 				var lastIndex = -1;
 				do {
-					lastIndex = sb.indexOf(word, lastIndex + 1)
+					lastIndex = sb.indexOf(word, lastIndex + 1,true)
 					val flag = lastIndex != -1;
 					if (flag) {
 						sb.insert(lastIndex, "|")

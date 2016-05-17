@@ -31,7 +31,7 @@ private fun showWordsHandle(dictionariesDP: DictionariesDPImpl, rawText: String)
 	println(buildText(words, " "))
 	words = TextUtils.postProcessText(words)
 	println()
-	words = TextUtils.stemming(words)
+//	words = TextUtils.stemming(words)
 	useGroupe(words)
 }
 
