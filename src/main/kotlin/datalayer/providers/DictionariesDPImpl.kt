@@ -12,7 +12,8 @@ class DictionariesDPImpl : DictionariesDP {
 		return Arrays.asList(
 			"R.",
 			"A.",
-			"T."
+			"T.",
+			"мс"
 		)
 	}
 
@@ -206,7 +207,8 @@ class DictionariesDPImpl : DictionariesDP {
 			"не",
 			"сказала",
 			"либо",
-			"кто-то"
+			"кто-то",
+			"мс"
 			)
 	}
 }

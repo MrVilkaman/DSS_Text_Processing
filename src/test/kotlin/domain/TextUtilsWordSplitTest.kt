@@ -1,6 +1,7 @@
 package domain
 
 import org.assertj.core.api.Assertions
+import org.junit.Assert
 import org.junit.Test
 import java.util.*
 
@@ -40,5 +41,12 @@ class TextUtilsWordSplitTest {
 		//
 		val strings = TextUtils.splitByWords(emptyList<String>(), rawText)
 		Assertions.assertThat(strings).contains("qwer", "asdf", "qwer", "qwer", "zxc").hasSize(5)
+	}
+
+	@Test
+	fun testChar160Trim() {
+		val rawText = "qwer${160.toChar()}asdf${160.toChar()}qwer${160.toChar()}or${160.toChar()}qwer zxc"
+		val strings = TextUtils.splitByWords(emptyList<String>(), rawText)
+		Assertions.assertThat(strings).contains("qwer", "asdf", "qwer", "qwer", "zxc","or").hasSize(6)
 	}
 }

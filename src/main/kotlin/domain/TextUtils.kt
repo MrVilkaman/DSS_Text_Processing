@@ -17,7 +17,7 @@ class TextUtils {
 			val mapp: ArrayList<WordsFrequency> = ArrayList<WordsFrequency>()
 			groupBy.forEach { mapp.add(WordsFrequency(it.key, it.value.size)) }
 			mapp.revSort()
-//			mapp.removeIf { it.count == 1 }
+			mapp.removeIf { it.count == 1 }
 
 			return mapp
 		}
@@ -29,7 +29,9 @@ class TextUtils {
 				val w = words.get(index)
 					.trim({
 						it.isWhitespace() || it.equals(':')
-							|| it.equals('?') || it.equals('!')
+							|| it.equals('?')
+							|| it.equals(160.toChar())
+							|| it.equals('!')
 							|| it.equals(',') || it.equals('.') || it.equals(')') || it.equals('(') || it.equals('»') || it.equals('«')
 					})
 				var flag = w.isNotEmpty()
@@ -111,7 +113,7 @@ class TextUtils {
 		}
 
 		fun split(rawText: String): List<String> {
-			return rawText.split(' ');
+			return rawText.split(' ',160.toChar());
 		}
 
 		fun preProcessText(dictionaryName: List<String>, rawText: String): String {
@@ -137,10 +139,15 @@ class TextUtils {
 			var inProgres: Boolean = false
 			var sb: StringBuilder? = null;
 			for (word in words) {
+				if(word.contains("Fortress")){
+					println()
+				}
+
 				if (inProgres) {
 					if (word.endsWith('|')) {
 						if (sb != null) {
-							sb.append(word.substring(0..word.length - 2))
+							val substring = word.substring(0..word.length - 2)
+							sb.append(substring)
 							newWords.add(sb.toString())
 							sb = null
 							inProgres = false
