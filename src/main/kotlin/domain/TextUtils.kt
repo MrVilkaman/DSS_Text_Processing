@@ -17,8 +17,7 @@ class TextUtils {
 			val mapp: ArrayList<WordsFrequency> = ArrayList<WordsFrequency>()
 			groupBy.forEach { mapp.add(WordsFrequency(it.key, it.value.size)) }
 			mapp.revSort()
-			mapp.removeIf { it.count == 1 }
-
+//			mapp.removeIf { it.count == 1 }
 			return mapp
 		}
 
@@ -43,7 +42,7 @@ class TextUtils {
 					flag = !w.equals(dikWord, true)
 				}
 				if (flag) {
-					wordsNew.add(w)
+					wordsNew.add(w.toLowerCase())
 				}
 			}
 			wordsNew.reverse()
@@ -113,7 +112,7 @@ class TextUtils {
 		}
 
 		fun split(rawText: String): List<String> {
-			return rawText.split(' ',160.toChar());
+			return rawText.split(' ', 160.toChar());
 		}
 
 		fun preProcessText(dictionaryName: List<String>, rawText: String): String {
@@ -121,7 +120,7 @@ class TextUtils {
 			for (word in dictionaryName) {
 				var lastIndex = -1;
 				do {
-					lastIndex = sb.indexOf(word, lastIndex + 1,true)
+					lastIndex = sb.indexOf(word, lastIndex + 1, true)
 					val flag = lastIndex != -1;
 					if (flag) {
 						sb.insert(lastIndex, "|")
@@ -139,10 +138,6 @@ class TextUtils {
 			var inProgres: Boolean = false
 			var sb: StringBuilder? = null;
 			for (word in words) {
-				if(word.contains("Fortress")){
-					println()
-				}
-
 				if (inProgres) {
 					if (word.endsWith('|')) {
 						if (sb != null) {
@@ -168,6 +163,41 @@ class TextUtils {
 			return newWords
 
 		}
+
+		fun analysWords(words: List<String>): List<String> {
+			val ww = ArrayList<String>()
+				for (index in 0..words.size - 1) {
+					val s = words[index];
+
+					val contains = s.contains('-')
+
+					if(contains){
+						var count = 0;
+						for(num in s.split('-')){
+							val num1 = num.trim('$')
+							if (num1.isNum())
+								count++;
+						}
+						if (count == 2)
+							ww.add("$s (диапозон)")
+						else
+							ww.add(s)
+					}else {
+						 if (s.isNum()) ww.add("$s (число)") else ww.add(s)
+					}
+				}
+			return ww
+		}
+	}
+
+}
+
+fun String.isNum():Boolean {
+	try {
+		Integer.parseInt(this)
+		return true
+	} catch(e: Exception) {
+		return false
 	}
 
 }

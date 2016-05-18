@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 
 
 	var rawText = textDP.getRawText()
-//	showSentensies(dictionariesDP, rawText)
+	showSentensies(dictionariesDP, rawText)
 
 	showWordsHandle(dictionariesDP, rawText)
 
@@ -27,11 +27,17 @@ fun main(args: Array<String>) {
 private fun showWordsHandle(dictionariesDP: DictionariesDPImpl, rawText: String) {
 	val text = TextUtils.preProcessText(dictionariesDP.getDictionaryName(),rawText)
 	var words = TextUtils.splitByWords(dictionariesDP.getDictionaryStopWords(), text)
+
 	println("Текст без \"мусора\":")
 	println(buildText(words, " "))
-	words = TextUtils.postProcessText(words)
 	println()
-//	words = TextUtils.stemming(words)
+
+	words = TextUtils.postProcessText(words)
+	words = TextUtils.stemming(words)
+
+	words = TextUtils.analysWords(words)
+
+	println()
 	useGroupe(words)
 }
 
