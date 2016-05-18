@@ -55,13 +55,16 @@ fun useGroupe(words: List<String>) {
 	val mapp = TextUtils.groupe(words)
 	val sb = StringBuilder()
 	sb.append('\n').append("*****").append('\n')
+	val size = mapp.size.toFloat()
 	for (w in mapp) {
-		sb.append(w.word).append(" = ").append(w.count).append('\n')
+		val fl = w.count / size
+		sb.append(w.word).append(" = ").append(w.count).append(" (${fl.format(4)})").append('\n')
 	}
-	sb.append("Всего групп: ").append(mapp.size).append('\n')
+	sb.append("Всего групп: ").append(size).append('\n')
 	println("${sb.toString()}")
 }
 
+fun Float.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
 private fun buildText(words: List<String>, sepor: String): String {
 	val sb = StringBuilder()
