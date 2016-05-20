@@ -1,7 +1,8 @@
 import datalayer.providers.DictionariesDPImpl
 import domain.DIManager
 import domain.TextUtils
-import java.util.*
+import domain.entity.WordsFrequency
+
 
 /**
  * Created by Zahar on 17.04.16.
@@ -21,11 +22,21 @@ fun main(args: Array<String>) {
 
 	showWordsHandle(dictionariesDP, rawText)
 
+	showWordRateInSentensies(dictionariesDP, rawText)
+
 	println("exit")
 }
 
+private fun showWordRateInSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) {
+	val list = TextUtils.getWordsPairs(dictionariesDP, rawText)
+
+	val mapp = TextUtils.sortByFrequency(TextUtils.groupPairs(list))
+	println("Совместное использование слова в предложении: ")
+	printGroup(mapp)
+}
+
 private fun showWordsHandle(dictionariesDP: DictionariesDPImpl, rawText: String) {
-	val text = TextUtils.preProcessText(dictionariesDP.getDictionaryName(),rawText)
+	val text = TextUtils.preProcessText(dictionariesDP.getDictionaryName(), rawText)
 	var words = TextUtils.splitByWords(dictionariesDP.getDictionaryStopWords(), text)
 
 	println("Текст без \"мусора\":")
@@ -38,7 +49,7 @@ private fun showWordsHandle(dictionariesDP: DictionariesDPImpl, rawText: String)
 	words = TextUtils.analysWords(words)
 
 	println()
-	useGroupe(words)
+	printGroup(TextUtils.groupe(words))
 }
 
 private fun showSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) {
@@ -51,8 +62,7 @@ private fun showSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) 
 }
 
 
-fun useGroupe(words: List<String>) {
-	val mapp = TextUtils.groupe(words)
+fun printGroup(mapp: List<WordsFrequency>) {
 	val sb = StringBuilder()
 	sb.append('\n').append("*****").append('\n')
 	val size = mapp.size.toFloat()

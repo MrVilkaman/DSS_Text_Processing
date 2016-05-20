@@ -1,5 +1,6 @@
 package domain
 
+import datalayer.providers.DictionariesDPImpl
 import domain.entity.WordsFrequency
 import domain.entity.revSort
 import java.util.*
@@ -13,11 +14,19 @@ class TextUtils {
 		fun groupe(words: List<String>): List<WordsFrequency> {
 			val list = ArrayList(words)
 
-			val groupBy = list.groupBy { it }
+			val groupBy: Map<String, List<String>> = list.groupBy { it }
 			val mapp: ArrayList<WordsFrequency> = ArrayList<WordsFrequency>()
 			groupBy.forEach { mapp.add(WordsFrequency(it.key, it.value.size)) }
 			mapp.revSort()
 //			mapp.removeIf { it.count == 1 }
+			return mapp
+		}
+
+		fun sortByFrequency(groupBy: Map<Pair<String, String>, List<Pair<String, String>>>): List<WordsFrequency> {
+			val mapp: ArrayList<WordsFrequency> = ArrayList<WordsFrequency>()
+			groupBy.forEach { mapp.add(WordsFrequency(it.key.first + " " + it.key.second, it.value.size)) }
+			mapp.revSort()
+			mapp.removeIf { it.count == 1 }
 			return mapp
 		}
 
@@ -188,8 +197,39 @@ class TextUtils {
 				}
 			return ww
 		}
-	}
 
+
+		fun groupPairs(list: ArrayList<Pair<String, String>>): Map<Pair<String, String>, List<Pair<String, String>>> {
+			val list2 = ArrayList<Pair<String, String>>()
+			for (ww in list) {
+				val compareTo = ww.first.compareTo(ww.second) < 0;
+				list2.add(Pair(if (compareTo) ww.first else ww.second, if (!compareTo) ww.first else ww.second))
+			}
+
+			val groupBy = list2.groupBy { it }
+			return groupBy
+		}
+
+		fun getWordsPairs(dictionariesDP: DictionariesDPImpl, rawText: String): ArrayList<Pair<String, String>> {
+			val sentensies = TextUtils.splitBySentensies(rawText, dictionariesDP.getDictionaryAbbreviations())
+
+			val list = ArrayList<Pair<String, String>>()
+
+			for (sent in sentensies) {
+				val text = TextUtils.preProcessText(dictionariesDP.getDictionaryName(), sent)
+				var words = TextUtils.splitByWords(dictionariesDP.getDictionaryStopWords(), text)
+				words = TextUtils.postProcessText(words)
+				words = TextUtils.stemming(words)
+
+				for (i in 0..words.size - 1) {
+					for (j in i + 1..words.size - 1) {
+						list.add(Pair(words[i], words[j]))
+					}
+				}
+			}
+			return list
+		}
+	}
 }
 
 fun String.isNum():Boolean {
