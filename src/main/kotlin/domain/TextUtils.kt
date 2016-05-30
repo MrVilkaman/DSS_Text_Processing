@@ -18,7 +18,7 @@ class TextUtils {
 			val mapp: ArrayList<WordsFrequency> = ArrayList<WordsFrequency>()
 			groupBy.forEach { mapp.add(WordsFrequency(it.key, it.value.size)) }
 			mapp.revSort()
-//			mapp.removeIf { it.count == 1 }
+			mapp.removeIf { it.count == 1 }
 			return mapp
 		}
 
@@ -239,5 +239,4 @@ fun String.isNum():Boolean {
 	} catch(e: Exception) {
 		return false
 	}
-
 }

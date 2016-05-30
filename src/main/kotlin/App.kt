@@ -16,7 +16,6 @@ fun main(args: Array<String>) {
 
 	val dictionariesDP = DIManager.getDictionariesDP()
 
-
 	var rawText = textDP.getRawText()
 	showSentensies(dictionariesDP, rawText)
 
@@ -60,7 +59,6 @@ private fun showSentensies(dictionariesDP: DictionariesDPImpl, rawText: String) 
 	println("****")
 	println()
 }
-
 
 fun printGroup(mapp: List<WordsFrequency>) {
 	val sb = StringBuilder()
